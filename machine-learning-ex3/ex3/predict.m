@@ -22,11 +22,21 @@ p = zeros(size(X, 1), 1);
 %
 
 
+% add column of ones to input X
+X = [ones(m, 1) X];
 
+# compute input to second layer a2
+a2 = sigmoid(X *Theta1' );
 
+% add column of ones to second layer a2
+m =  size(a2, 1);
+a2  = [ones(m, 1) a2];
 
+%compute final output a3
+a3 = sigmoid(a2 * Theta2' );
 
-
+% find index p for label of max probability t in each row
+[t, p] = max(a3, [], 2);
 
 
 % =========================================================================
