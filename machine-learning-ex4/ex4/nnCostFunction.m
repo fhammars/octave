@@ -62,22 +62,25 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% recode y labels into one-hot encoded vectors
+y1 = eye(num_labels);
+y1 = y1(:,y);
 
+% add column of ones to input X
+X1 = [ones(m, 1) X];
 
+# compute input to second layer a2
+a2 = sigmoid(X1 *Theta1' );
 
+% add column of ones to second layer a2
+m  =  size(a2, 1);
+a2 = [ones(m, 1) a2];
 
+% compute final output a3
+a3 = sigmoid(a2 * Theta2' );
 
-
-
-
-
-
-
-
-
-
-
-
+% compute cost function using h0(x)=a3 and y1 as a one-hot encoded y vector
+J = 1/m *sum(sum( -(y1').* log(a3) - (1-y1').* log(1-a3)));
 
 
 % -------------------------------------------------------------
