@@ -64,13 +64,16 @@ Theta2_grad = zeros(size(Theta2));
 
 % recode y labels into one-hot encoded vectors
 y1 = eye(num_labels);
-y1 = y1(:,y);
+y1 = (y1(:,y))';
+
+
+% ---- Feedforward propagation ----
 
 % add column of ones to input X
-X1 = [ones(m, 1) X];
+a1 = [ones(m, 1) X];
 
 # compute input to second layer a2
-a2 = sigmoid(X1 *Theta1' );
+a2 = sigmoid(a1 *Theta1' );
 
 % add column of ones to second layer a2
 m  =  size(a2, 1);
@@ -79,11 +82,31 @@ a2 = [ones(m, 1) a2];
 % compute final output a3
 a3 = sigmoid(a2 * Theta2' );
 
+
+% ---- Cost function-----
+
 % compute cost function using h0(x)=a3 and y1 as a one-hot encoded y vector
-J = 1/m *sum(sum( -(y1').* log(a3) - (1-y1').* log(1-a3)));
+J = 1/m *sum(sum( -(y1).* log(a3) - (1-y1).* log(1-a3)));
 
 % add regularization term
-J += sum(lambda/(2*m) * ( sum((Theta1(:,2:end).^2)(:)) + sum((Theta2(:,2:end).^2)(:) )) );
+J += lambda/(2*m) * ( sum((Theta1(:,2:end).^2)(:)) + sum((Theta2(:,2:end).^2)(:) ));
+
+
+% ---- Backpropagation -----
+
+% compute error of node for layer 3
+delta_3 = a3 - y1;
+
+% compute error of node for layer 2 
+delta_2 = delta_3 * Theta2   .*  a2 .* (1 - a2);
+% remove delta_2(0)
+delta_2 = delta_2(:,2:end);
+
+% compute gradient for theta1
+Theta1_grad =  delta_2' * a1 / m;
+
+% compute gradient for theta2
+Theta2_grad = delta_3' *a2 /m ;
 
 
 % -------------------------------------------------------------
