@@ -82,6 +82,9 @@ a3 = sigmoid(a2 * Theta2' );
 % compute cost function using h0(x)=a3 and y1 as a one-hot encoded y vector
 J = 1/m *sum(sum( -(y1').* log(a3) - (1-y1').* log(1-a3)));
 
+% add regularization term
+J += sum(lambda/(2*m) * ( sum((Theta1(:,2:end).^2)(:)) + sum((Theta2(:,2:end).^2)(:) )) );
+
 
 % -------------------------------------------------------------
 
