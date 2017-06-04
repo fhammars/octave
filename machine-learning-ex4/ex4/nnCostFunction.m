@@ -108,6 +108,15 @@ Theta1_grad =  delta_2' * a1 / m;
 % compute gradient for theta2
 Theta2_grad = delta_3' *a2 /m ;
 
+% don't add regularization term for first column
+Theta1(:,1) = 0;
+Theta2(:,1) = 0;
+
+% add regularization term
+Theta1_grad += lambda * Theta1/m;
+Theta2_grad += lambda * Theta2/m;
+
+
 
 % -------------------------------------------------------------
 
