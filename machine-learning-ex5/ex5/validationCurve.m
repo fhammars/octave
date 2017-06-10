@@ -40,11 +40,22 @@ error_val = zeros(length(lambda_vec), 1);
 %
 
 
+for i = 1:length(lambda_vec)
+  
+    lambda = lambda_vec(i);
 
+    % train theta with traingset
+    theta = trainLinearReg(X, y, lambda);
+    
+    %compute cost for trainingset and validation set
+    [J_train, grad_train] =  linearRegCostFunction(X, y, theta, 0);
+    [J_val, grad_val] =  linearRegCostFunction(Xval, yval, theta, 0);
+     
+    error_train(i) = J_train;
+    error_val(i) = J_val;
 
-
-
-
+    
+ end
 
 
 
