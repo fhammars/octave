@@ -54,7 +54,24 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
-
+for i = 1:m
+    
+    % extract training dataset
+    X_train = X(1:i, :);
+    y_train = y(1:i);
+  
+    % train theta with traingset
+    theta = trainLinearReg(X_train, y_train, lambda);
+    
+    %compute cost for trainingset and validation set
+    [J_train, grad_train] =  linearRegCostFunction(X_train, y_train, theta, 0);
+    [J_val, grad_val] =  linearRegCostFunction(Xval, yval, theta, 0);
+     
+    error_train(i) = J_train;
+    error_val(i) = J_val;
+    
+  
+end
 
 
 
