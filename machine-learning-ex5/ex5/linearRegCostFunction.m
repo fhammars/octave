@@ -23,11 +23,13 @@ grad = zeros(size(theta));
 
 
 
-
+% compute cost function for linear regression
 J=1/(2*m) *sum((X*theta-y).^2) + sum(lambda/(2*m)*theta(2:end).^2);
 
 
-
+% compute gradient for linear regression
+grad = 1/m *X'*(X*theta-y) + lambda/m *theta;
+grad(1) -= lambda/m *theta(1);
 
 
 % =========================================================================
