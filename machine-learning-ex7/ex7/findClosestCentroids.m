@@ -21,8 +21,23 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
+%loop over dataset x
+for j = 1:size(X,1)
+  centroid_min = intmax;
+  
+  %loop over centroids
+  for i = 1:K
+    %find euclidian distance between centroid i and data x
+    d = norm(X(j,:) - centroids(i,:))^2;
+    
+    % for closest distance, save the centroid index
+    if(d <= centroid_min )
+      centroid_min = d;
+      idx(j) = i;
+    endif
+    
+   endfor
+endfor
 
 
 
