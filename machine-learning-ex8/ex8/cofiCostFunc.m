@@ -41,9 +41,8 @@ Theta_grad = zeros(size(Theta));
 %
 
 
-
-
-
+% compute cost function
+J = 1/2 * sum(sum (( R.*(X*Theta') - R.*Y).^2));
 
 
 
