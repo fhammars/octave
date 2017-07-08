@@ -45,12 +45,30 @@ Theta_grad = zeros(size(Theta));
 J = 1/2 * sum(sum (( R.*(X*Theta') - R.*Y).^2));
 
 
+for i=1:num_movies
+  
+  %find all users with R=1
+  idx = find(R(i,:) == 1);
+  Theta_t = Theta(idx,:);
+  Y_t = Y(i,idx);
+
+  X_grad(i, :) = (X(i, :) * Theta_t'- Y_t) * Theta_t;
+  
+endfor
 
 
 
+for j=1:num_users
+  
+  #find all movies with R=1
+  idx = find(R(:,j) == 1);
 
-
-
+  Y_t =  Y(idx,j);
+  X_t = X(idx,:);
+ 
+  Theta_grad(j, :) = (X_t * Theta(j,:)' - Y_t)' * X_t;
+  
+endfor
 
 
 
