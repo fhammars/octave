@@ -39,10 +39,13 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
-
+% 
 
 % compute cost function
 J = 1/2 * sum(sum (( R.*(X*Theta') - R.*Y).^2));
+
+% add regularization term
+J += lambda/2*(sum(Theta(:).^2) + sum(X(:).^2));
 
 
 for i=1:num_movies
