@@ -5,7 +5,6 @@ function ret = cd1(rbm_w, visible_data)
   
   
   visible_state = visible_data;
-  m = size(visible_state,2);
   
   # calculate hidden state from visible state
   hidden_state    = sample_bernoulli( visible_state_to_hidden_probabilities(rbm_w, visible_state) );
@@ -14,7 +13,7 @@ function ret = cd1(rbm_w, visible_data)
   visible_state_1 = sample_bernoulli( hidden_state_to_visible_probabilities(rbm_w, hidden_state) );
   
   #calculate new hidden state form new visible state
-  hidden_state_1  = sample_bernoulli( visible_state_to_hidden_probabilities(rbm_w, visible_state_1) );
+  hidden_state_1  = ( visible_state_to_hidden_probabilities(rbm_w, visible_state_1) );
   
   #calculate goodness gradient for initial state
   d_G_by_rbm_w   = configuration_goodness_gradient(visible_state, hidden_state);
